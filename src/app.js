@@ -73,10 +73,9 @@ app.use(
     cookie: {
       httpOnly: true,
       sameSite: 'lax',
-      secure: 'auto', // ← automatycznie Secure tylko gdy req.secure === true (HTTPS za proxy)
-      maxAge: 1000 * 60 * 60 * 8,
-      // na razie bez domain, żeby uniknąć niezgodności hostów:
-      // jeśli chcesz dla www i bez-www – ustawisz .cracovautomationhub.pl po teście
+      secure: true,                               // stałe Secure (bo za HTTPS + trust proxy)
+      domain: '.cracovautomationhub.pl',          // jeden cookie dla apex + www
+      maxAge: 1000 * 60 * 60 * 8
     }
   })
 );
