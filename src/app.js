@@ -112,10 +112,23 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
+  // już zalogowany? -> dashboard
+  if (req.session?.user) return res.redirect('/dashboard');
+
+  // nie cache’ujemy HTML z tokenem CSRF
   res.set('Cache-Control', 'no-store');
-  const { e } = req.query;
-  res.render('login', { title: 'Logowanie', error: e || null });
+
+  // --- KLUCZ: zainicjuj sesję, żeby Set-Cookie poszło już przy GET /login ---
+  // (saveUninitialized=false potrafi NIE wysłać cookie jeśli nic nie zmienisz w sesji)
+  if (!req.session._loginPageTouched) {
+    req.session._loginPageTouched = Date.now(); // dowolna flaga, by oznaczyć "zmieniono sesję"
+  }
+
+  // Na wszelki wypadek wymuś zapis przed renderem (nie zaszkodzi, a daje pewność)
+  req.session.save(() => {
+    const { e } = req.query;
+    return res.render('login', { title: 'Logowanie', error: e || null });
+  });
 });
 
 app.post(
