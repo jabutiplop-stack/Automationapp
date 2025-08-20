@@ -31,7 +31,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // --- Layout EJS ---
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(expressLayouts);
 app.set('layout', 'layout'); // korzystamy z views/layout.ejs
 
 // --- Security headers (CSP dostosowane do fontów/CSS) ---
@@ -56,7 +56,7 @@ app.use(
 // --- Logi + body parsing + statyki ---
 app.use(morgan('combined'));
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // --- Sesje (PostgreSQL store) ---
 app.use(
