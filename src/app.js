@@ -31,7 +31,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // --- Layout EJS ---
-app.use(expressLayouts);
+app.use(express.static(path.join(__dirname, '..', 'public')));
 app.set('layout', 'layout'); // korzystamy z views/layout.ejs
 
 // --- Security headers (CSP dostosowane do fontów/CSS) ---
