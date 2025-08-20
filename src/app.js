@@ -96,6 +96,7 @@ app.use((req, res, next) => {
   } catch {
     res.locals.csrfToken = '';
   }
+  res.locals.currentPath = req.path || '';
   next();
 });
 
