@@ -24,7 +24,9 @@
             <button class="btn btn--primary btn--sm">Wyloguj</button>
           </form>
         <% } else { %>
-          <a class="btn btn--primary" href="/login">Zaloguj</a>
+          <% if (path !== '/login') { %>
+            <a class="btn btn--primary" href="/login">Zaloguj</a>
+          <% } %>
         <% } %>
       </div>
     </nav>

@@ -73,4 +73,25 @@
   .badge--err{background:rgba(255,107,107,.15);color:var(--err);border-color:rgba(255,107,107,.3)}
   .alert{padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:#191f2b}
   .alert--error{border-color:rgba(255,107,107,.3);color:#ffb1b1}
-  
+  .center-wrap{padding: 24px} /* trochę marginesu na małych ekranach */
+
+.login-card{
+  padding: 24px;                 /* oddech wewnątrz karty */
+  max-width: 460px;              /* odrobinę szersza na desktopie */
+  display: grid;
+  gap: 12px;
+}
+
+.login-card .h3{margin: 0 0 6px 0}
+.login-card .muted{margin: 0 0 10px 0; display:block}
+
+.form{gap: 16px}                 /* większe odstępy między polami */
+.input{width: 100%}              /* pełna szerokość pól */
+.btn.w-100{margin-top: 4px}
+
+@media (min-width: 900px){
+  .login-card{padding: 28px}
+}
+
+/* opcjonalnie: delikatniejszy cień */
+.card--elevated{box-shadow: 0 14px 44px rgba(0,0,0,.35)}
