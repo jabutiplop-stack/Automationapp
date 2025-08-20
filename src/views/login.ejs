@@ -8,19 +8,15 @@
       <% } %>
   
       <form action="/login" method="post" class="form" autocomplete="off" novalidate>
-        <!-- CSRF: MUSI być to ukryte pole -->
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-  
         <label class="field">
           <span class="label">Nazwa użytkownika</span>
           <input name="username" type="text" class="input" placeholder="np. admin" required />
         </label>
-  
         <label class="field">
           <span class="label">Hasło</span>
           <input name="password" type="password" class="input" placeholder="••••••••" required />
         </label>
-  
         <button class="btn btn--primary btn--lg w-100" type="submit">Zaloguj</button>
       </form>
   

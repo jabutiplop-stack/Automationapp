@@ -16,7 +16,6 @@
           <span class="brand__name">Cracov Automation Hub</span>
         </a>
       </div>
-
       <div class="topbar__right">
         <% if (user) { %>
           <a class="btn btn--ghost" href="/dashboard">Dashboard</a>
@@ -25,11 +24,12 @@
             <button class="btn btn--primary btn--sm">Wyloguj</button>
           </form>
         <% } else { %>
-          <% if (currentPath !== '/login') { %>
+          <% if (currentPath !== '/login') { %>  <!-- TU jest poprawka -->
             <a class="btn btn--primary" href="/login">Zaloguj</a>
           <% } %>
         <% } %>
       </div>
+      
     </nav>
 
     <main class="page">
