@@ -1,18 +1,17 @@
-import pkg from 'pg';
-const { Pool } = pkg;
+import pg from 'pg';
+import dotenv from 'dotenv';
+dotenv.config();
 
-export const pool = new Pool({
-  host: process.env.PGHOST,
-  port: Number(process.env.PGPORT || 5000),
-  database: process.env.PGDATABASE,
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  max: 10,
-  idleTimeoutMillis: 30_000
+
+export const pool = new pg.Pool({
+host: process.env.PGHOST || 'localhost',
+port: Number(process.env.PGPORT) || 5432,
+user: process.env.PGUSER,
+password: process.env.PGPASSWORD,
+database: process.env.PGDATABASE || 'uzytkownicy',
+ssl: false // jeżeli potrzebujesz SSL do DB, ustaw właściwie
 });
 
-// proste zdrowie połączenia
-export async function dbHealth() {
-  const { rows } = await pool.query('SELECT 1 as ok');
-  return rows[0]?.ok === 1;
-}
+
+// Prosta funkcja pomocnicza
+export const query = (text, params) => pool.query(text, params);

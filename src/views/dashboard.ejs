@@ -1,23 +1,24 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <title>Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="/public/styles.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard – Cracov Automation Hub</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <header class="topbar">
-    <div>Witaj, <strong><%= user.username %></strong></div>
-    <form method="POST" action="/logout">
-      <!-- Token CSRF dla wylogowania (chroni przed CSRF na POST) -->
-      <input type="hidden" name="_csrf" value="<%= locals._csrf || '' %>">
-      <button type="submit">Wyloguj</button>
-    </form>
-  </header>
-  <main class="container">
-    <h1>Twój dashboard</h1>
-    <p>Tu później dodamy funkcjonalności.</p>
-  </main>
+<header class="topbar">
+<div>Witaj, <strong><%= user.username %></strong></div>
+<form method="post" action="/logout">
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+<button type="submit">Wyloguj</button>
+</form>
+</header>
+
+
+<main class="container">
+<h1>Dashboard</h1>
+<p>Tu wkrótce dodamy funkcjonalności automatyzacji ✨</p>
+</main>
 </body>
 </html>
