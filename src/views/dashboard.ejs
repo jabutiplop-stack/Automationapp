@@ -1,24 +1,51 @@
-<!doctype html>
-<html lang="pl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboard – Cracov Automation Hub</title>
-<link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-<header class="topbar">
-<div>Witaj, <strong><%= user.username %></strong></div>
-<form method="post" action="/logout">
-<input type="hidden" name="_csrf" value="<%= csrfToken %>">
-<button type="submit">Wyloguj</button>
-</form>
-</header>
+<% layout('layout') %>
+<div class="dash">
+  <aside class="dash__sidebar">
+    <div class="side-section">
+      <div class="side-title">Nawigacja</div>
+      <a href="/dashboard" class="side-link side-link--active">📊 Podsumowanie</a>
+      <a href="/webhooks"  class="side-link">🔔 Webhooki</a>
+      <a href="/runs"      class="side-link">⚡ Wykonania</a>
+      <a href="/settings"  class="side-link">⚙️ Ustawienia</a>
+    </div>
+  </aside>
 
+  <section class="dash__content">
+    <h1 class="h2">Witaj, <%= (user && user.name) || "Użytkowniku" %> 👋</h1>
+    <div class="grid">
+      <div class="card">
+        <div class="card__header">
+          <h3 class="h5">Status systemu</h3>
+        </div>
+        <div class="card__body">
+          <ul class="stats">
+            <li><span class="stat__label">Automatyzacje</span><span class="stat__value"><%= stats.automations || 0 %></span></li>
+            <li><span class="stat__label">Webhooki</span><span class="stat__value"><%= stats.webhooks || 0 %></span></li>
+            <li><span class="stat__label">Błędy 24h</span><span class="stat__value stat__value--warn"><%= stats.errors24h || 0 %></span></li>
+          </ul>
+        </div>
+      </div>
 
-<main class="container">
-<h1>Dashboard</h1>
-<p>Tu wkrótce dodamy funkcjonalności automatyzacji ✨</p>
-</main>
-</body>
-</html>
+      <div class="card">
+        <div class="card__header">
+          <h3 class="h5">Ostatnie zdarzenia</h3>
+        </div>
+        <div class="card__body table-wrap">
+          <table class="table">
+            <thead><tr><th>Data</th><th>Typ</th><th>Źródło</th><th>Status</th></tr></thead>
+            <tbody>
+              <% (events || []).slice(0,8).forEach(e => { %>
+                <tr>
+                  <td><%= e.date || "-" %></td>
+                  <td><%= e.type || "-" %></td>
+                  <td><%= e.source || "-" %></td>
+                  <td><span class="badge <%= e.ok ? 'badge--ok' : 'badge--err' %>"><%= e.ok ? 'OK' : 'Błąd' %></span></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

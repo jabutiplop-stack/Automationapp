@@ -1,31 +1,28 @@
 <!doctype html>
-<html lang="pl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Logowanie – Cracov Automation Hub</title>
-<link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-<main class="container">
-<h1>Logowanie</h1>
+<% layout('layout') %>
+<section class="center-wrap">
+  <div class="card card--elevated login-card">
+    <h1 class="h3">Logowanie</h1>
+    <p class="muted">Zaloguj się, aby przejść do panelu.</p>
 
+    <% if (error) { %>
+      <div class="alert alert--error"><%= error %></div>
+    <% } %>
 
-<% if (error) { %>
-<div class="alert"><%= error %></div>
-<% } %>
+    <form action="/login" method="post" class="form">
+      <label class="field">
+        <span class="label">E‑mail</span>
+        <input name="email" type="email" class="input" placeholder="you@company.com" required />
+      </label>
 
+      <label class="field">
+        <span class="label">Hasło</span>
+        <input name="password" type="password" class="input" placeholder="••••••••" required />
+      </label>
 
-<form method="post" action="/login" class="card">
-<input type="hidden" name="_csrf" value="<%= csrfToken %>">
-<label>Użytkownik
-<input name="username" autocomplete="username" required>
-</label>
-<label>Hasło
-<input name="password" type="password" autocomplete="current-password" required>
-</label>
-<button type="submit">Zaloguj</button>
-</form>
-</main>
-</body>
-</html>
+      <button class="btn btn--primary btn--lg w-100" type="submit">Zaloguj</button>
+    </form>
+
+    <p class="muted mt-2">Zapomniałeś hasła? <a href="#" class="link">Skontaktuj się z adminem</a></p>
+  </div>
+</section>
