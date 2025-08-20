@@ -11,7 +11,10 @@
   <body class="theme">
     <nav class="topbar">
       <div class="topbar__left">
-        <a href="/" class="brand"><span class="brand__logo">⚙️</span><span class="brand__name">Cracov Automation Hub</span></a>
+        <a href="/" class="brand">
+          <span class="brand__logo">⚙️</span>
+          <span class="brand__name">Cracov Automation Hub</span>
+        </a>
       </div>
       <div class="topbar__right">
         <% if (user) { %>
@@ -27,7 +30,7 @@
     </nav>
 
     <main class="page">
-      <%- body %> <!-- <<< tu wpada treść widoku -->
+      <%- body %>
     </main>
 
     <footer class="footer">
