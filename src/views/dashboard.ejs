@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/public/styles.css" rel="stylesheet">
+</head>
+<body>
+  <header class="topbar">
+    <div>Witaj, <strong><%= user.username %></strong></div>
+    <form method="POST" action="/logout">
+      <!-- Token CSRF dla wylogowania (chroni przed CSRF na POST) -->
+      <input type="hidden" name="_csrf" value="<%= locals._csrf || '' %>">
+      <button type="submit">Wyloguj</button>
+    </form>
+  </header>
+  <main class="container">
+    <h1>Twój dashboard</h1>
+    <p>Tu później dodamy funkcjonalności.</p>
+  </main>
+</body>
+</html>
