@@ -114,6 +114,7 @@ app.get('/', (req, res) => {
 
 app.get('/login', (req, res) => {
   if (req.session.user) return res.redirect('/dashboard');
+  res.set('Cache-Control', 'no-store');
   const { e } = req.query;
   res.render('login', { title: 'Logowanie', error: e || null });
 });
