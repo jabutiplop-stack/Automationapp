@@ -70,4 +70,6 @@ app.use((req, res) => res.status(404).send('404 Not Found'));
 
 // Start
 const PORT = Number(process.env.PORT || 3000);
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, '127.0.0.1', () => {
+  console.log(`Server on http://127.0.0.1:${PORT}`);
+});
