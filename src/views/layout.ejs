@@ -13,19 +13,16 @@
       <div class="topbar__left">
         <a href="/" class="brand">
           <span class="brand__logo">⚙️</span>
-          <span class="brand__name">Cracov Automation Hub</span>
+          <!-- usuwamy nazwę obok logo -->
         </a>
       </div>
       <div class="topbar__right">
-        <header class="topbar">
-        
-          <% if (user) { %>
-            <form class="inline" method="POST" action="/logout" style="display:inline;">
-              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-              <button class="btn btn--sm">Wyloguj</button>
-            </form>
-          
-        </header>
+        <% if (user) { %>
+          <form class="inline" method="POST" action="/logout" style="display:inline;">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button class="btn btn--sm">Wyloguj</button>
+          </form>
+        <% } %>
       </div>
       
     </nav>

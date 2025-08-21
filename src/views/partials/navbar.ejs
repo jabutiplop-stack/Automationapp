@@ -1,16 +1,15 @@
-<nav class="topbar">
-    <div class="topbar__left">
-      <a href="/" class="brand">
-        <span class="brand__logo">⚙️</span>
-        <span class="brand__name">Cracov Automation Hub</span>
-      </a>
-    </div>
-    <div class="topbar__right">
-      <% if (user) { %>
-        <a class="btn btn--ghost" href="/dashboard">Dashboard</a>
-        <form action="/logout" method="post" class="inline">
-          <button class="btn btn--primary btn--sm">Wyloguj</button>
-        </form>
-    </div>
-  </nav>
-  
+<nav class="topbar"></nav>
+  <div class="topbar__left">
+    <a href="/" class="brand">
+      <span class="brand__logo">⚙️</span>
+      <!-- usuwamy nazwę obok logo -->
+    </a>
+  </div>
+  <div class="topbar__right">
+    <% if (user) { %>
+      <form action="/logout" method="post" class="inline">
+        <button class="btn btn--primary btn--sm">Wyloguj</button>
+      </form>
+    <% } %>
+  </div>
+</nav>
