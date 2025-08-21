@@ -376,6 +376,39 @@ app.post('/admin/users/:id/permissions', requireAuth, requirePermission('users:m
   }
   res.redirect('/admin/users');
 });
+// === Dodawanie nowego użytkownika ===
+app.post('/admin/users', requireAuth, requirePermission('users:manage'), async (req, res) => {
+  const { username, password, permissions = [] } = req.body;
+
+  if (!username || !password) {
+    const { rows: users } = await query('SELECT id, username, permissions FROM users ORDER BY id ASC');
+    return res.render('admin-users', {
+      title: 'Użytkownicy',
+      users,
+      error: 'Musisz podać login i hasło',
+    });
+  }
+
+  try {
+    const hash = await bcrypt.hash(password, 10);
+    const permsArray = Array.isArray(permissions) ? permissions : [permissions];
+
+    await query(
+      'INSERT INTO users (username, password, permissions) VALUES ($1, $2, $3)',
+      [username, hash, permsArray]
+    );
+
+    res.redirect('/admin/users');
+  } catch (err) {
+    console.error(err);
+    const { rows: users } = await query('SELECT id, username, permissions FROM users ORDER BY id ASC');
+    return res.render('admin-users', {
+      title: 'Użytkownicy',
+      users,
+      error: 'Nie udało się dodać użytkownika (login może być zajęty)',
+    });
+  }
+});
 
 app.post('/logout', (req, res) => {
   if (!req.session?.user) return res.redirect('/login');

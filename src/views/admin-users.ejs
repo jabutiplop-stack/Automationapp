@@ -1,42 +1,94 @@
-<h1 class="h2"><%= title %></h1>
-
-<div class="card">
-  <div class="card__body">
-    <div class="table-wrap">
-      <table class="table">
-        <thead>
-          <tr><th>ID</th><th>Login</th><th>Uprawnienia</th><th>Akcje</th></tr>
-        </thead>
-        <tbody>
-          <% users.forEach(u => { %>
-            <tr>
-              <td><%= u.id %></td>
-              <td><%= u.username %></td>
-              <td><%= (u.permissions || []).join(', ') || '-' %></td>
-              <td>
-                <form method="POST" action="/admin/users/<%= u.id %>/permissions">
-                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                  
-                    <% [
-                      'social:v1',
-                      'social:v2',
-                      'social:v3',
-                      'users:manage' // dostęp do panelu Użytkownicy
-                    ].forEach(p => { %>
-                      <label style="margin-right:12px; display:inline-block;">
-                        <input type="checkbox" name="permissions" value="<%= p %>"
-                          <%= (u.permissions || []).includes(p) ? 'checked' : '' %> />
-                        <span class="muted"><%= p %></span>
-                      </label>
-                    <% }) %>
-                  
-                    <button class="btn btn--sm" type="submit">Zapisz</button>
-                  </form>
-              </td>
-            </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    </div>
+<div class="dash">
+    <%- include('partials/sidebar') %>
+  
+    <section class="dash__content">
+      <h1 class="h2"><%= title %></h1>
+      <div class="card card--elevated" style="margin-bottom:20px;">
+        <div class="card__header">
+          <h2 class="h4">Dodaj nowego użytkownika</h2>
+        </div>
+        <div class="card__body">
+          <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert alert--error"><%= error %></div>
+          <% } %>
+      
+          <form method="POST" action="/admin/users" class="form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      
+            <div class="field">
+              <label class="label" for="username">Login</label>
+              <input class="input" id="username" name="username" required />
+            </div>
+      
+            <div class="field">
+              <label class="label" for="password">Hasło</label>
+              <input class="input" id="password" name="password" type="password" required />
+            </div>
+      
+            <div class="field">
+              <label class="label">Uprawnienia</label>
+              <div class="form-inline">
+                <% ['social:v1','social:v2','social:v3','users:manage'].forEach(p => { %>
+                  <label class="checkbox" style="margin-right:12px;">
+                    <input type="checkbox" name="permissions" value="<%= p %>" />
+                    <span><%= p %></span>
+                  </label>
+                <% }) %>
+              </div>
+            </div>
+      
+            <button class="btn btn--primary" type="submit">Dodaj użytkownika</button>
+          </form>
+        </div>
+      </div>
+      <div class="card card--elevated">
+        <div class="card__header">
+          <h2 class="h4">Lista użytkowników</h2>
+          <div class="muted">Zarządzaj dostępem do zakładek</div>
+        </div>
+        <div class="card__body table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Login</th>
+                <th>Uprawnienia</th>
+                <th>Akcje</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(u => { %>
+                <tr>
+                  <td><%= u.id %></td>
+                  <td><strong><%= u.username %></strong></td>
+                  <td>
+                    <%= (u.permissions || []).length
+                          ? u.permissions.join(', ')
+                          : '<span class="muted">brak</span>' %>
+                  </td>
+                  <td>
+                    <form method="POST" action="/admin/users/<%= u.id %>/permissions" class="form-inline">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                      <% [
+                        'social:v1',
+                        'social:v2',
+                        'social:v3',
+                        'users:manage'
+                      ].forEach(p => { %>
+                        <label class="checkbox" style="margin-right:12px;">
+                          <input type="checkbox" name="permissions" value="<%= p %>"
+                            <%= (u.permissions || []).includes(p) ? 'checked' : '' %> />
+                          <span><%= p %></span>
+                        </label>
+                      <% }) %>
+                      <button class="btn btn--sm btn--primary" type="submit">Zapisz</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   </div>
-</div>
