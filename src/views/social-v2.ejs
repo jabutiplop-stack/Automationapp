@@ -3,7 +3,55 @@
   
     <section class="dash__content">
       <h1 class="h2"><%= title %></h1>
-  
+        <h1>Cracov Automation Hub</h1>
+        <h3>Opis narzędzia w wersji beta 0.1.1</h3>
+        <hr>
+        <p>Witaj w świecie <span class="highlight">Cracov Automation Hub</span> - narzędzia, które ułatwia tworzenie i planowanie treści w mediach społecznościowych. Nasza aplikacja to obecnie wersja beta, która pozwala Ci na przetestowanie generowania postów i grafik. Finalnie, po etapie testów, narzędzie będzie umożliwiać pełną automatyzację publikacji treści na wybranych kanałach social media, oszczędzając Twój czas i wysiłek. Teraz masz unikalną szansę, aby zobaczyć, jak to działa i pomóc nam w jego rozwoju.</p>
+        <p class="beta-note">Pamiętaj, że to narzędzie jest w wersji beta 0.1.1. Z tego powodu mogą pojawić się błędy. Jeśli napotkasz jakiekolwiek problemy, prosimy o ich zgłaszanie. Twoja opinia jest dla nas niezwykle cenna i pomoże nam udoskonalić produkt. Chcemy również podkreślić, że zarówno kanał do akceptacji treści, jak i kanały na social mediach docelowo mogą być dowolnie modyfikowane, aby spełniać Twoje indywidualne potrzeby.</p>
+        <hr>
+        <h2>Instrukcja obsługi</h2>
+        <p>Korzystanie z <span class="highlight">Cracov Automation Hub</span> jest proste i intuicyjne. Postępuj zgodnie z poniższymi krokami, aby wygenerować swój pierwszy post:</p>
+        <ol>
+            <li>
+                <span class="highlight">Wypełnij formularz:</span>
+                <ul>
+                    <li>Wpisz swój adres e-mail, na który otrzymasz wygenerowane treści.</li>
+                    <li>Wprowadź temat posta, który chcesz stworzyć (np. "Promocja letniej kolekcji butów").</li>
+                    <li>Zaznacz opcję, jeśli chcesz, aby do posta została wygenerowana również grafika.</li>
+                </ul>
+            </li>
+            <li>
+                <span class="highlight">Wyślij zapytanie:</span>
+                <ul>
+                    <li>Kliknij przycisk <span class="highlight">"Wyślij"</span>. Nasz system zacznie generować treść i grafikę (jeśli ją zaznaczyłeś).</li>
+                </ul>
+            </li>
+            <li>
+                <span class="highlight">Akceptacja treści posta:</span>
+                <ul>
+                    <li>W ciągu kilkunastu sekund otrzymasz na podany e-mail wiadomość z wygenerowaną treścią posta.</li>
+                    <li>Aby zaakceptować treść, <span class="highlight">odpowiedz</span> na e-mail i wpisz komendę <span class="highlight">!Tak</span>.</li>
+                    <li>Jeśli treść wymaga poprawek, wpisz komendę <span class="highlight">!Nie</span> i dodaj swój komentarz, co ma zostać zmienione.</li>
+                    <li><strong>Uwaga:</strong> Komendy muszą zaczynać się od wielkiej litery i zawierać wykrzyknik (!Tak, !Nie).</li>
+                </ul>
+            </li>
+            <li>
+                <span class="highlight">Akceptacja grafiki (jeśli dotyczy):</span>
+                <ul>
+                    <li>Jeśli zaznaczyłeś opcję z grafiką, po zaakceptowaniu treści posta otrzymasz kolejny e-mail z wygenerowaną grafiką.</li>
+                    <li>Aby zaakceptować grafikę, <span class="highlight">odpowiedz</span> na e-mail, wpisując komendę <span class="highlight">!Tak</span>.</li>
+                    <li>Jeśli grafika wymaga poprawek, wpisz komendę <span class="highlight">!Nie</span> i opisz, co ma zostać zmienione.</li>
+                    <li>Pamiętaj o poprawnym formacie komend: <span class="highlight">!Tak</span> lub <span class="highlight">!Nie</span>.</li>
+                </ul>
+            </li>
+            <li>
+                <span class="highlight">Gotowy post:</span>
+                <ul>
+                    <li>Po zaakceptowaniu zarówno treści, jak i grafiki (jeśli była wymagana), otrzymasz ostatniego e-maila z gotowym postem na social media. Ten post domyślnie zostałby opublikowany na wybranych przez Ciebie kanałach.</li>
+                </ul>
+            </li>
+        </ol>
+        <p>Dziękujemy za pomoc w testowaniu i czekamy na Twoją opinię!</p>
       <% if (typeof payload !== 'undefined' && payload) { %>
         <div class="card" style="margin-top:16px;">
           <div class="card__header"><strong>Payload wysłany do webhooka</strong></div>
