@@ -359,7 +359,8 @@ app.get('/dashboard', (req, res) => {
 // === PANEL ADMINA: lista użytkowników (wymaga users:manage) ===
 app.get('/admin/users', requireAuth, requirePermission('users:manage'), async (req, res) => {
   const { rows: users } = await query('SELECT id, username, permissions FROM users ORDER BY id ASC');
-  res.render('admin-users', { title: 'Użytkownicy', users });
+  const { m, e } = req.query; // message / error
+  res.render('admin-users', { title: 'Użytkownicy', users, message: m || null, error: e || null });
 });
 
 // === PANEL ADMINA: zapis uprawnień (checkboxy) ===
@@ -407,6 +408,29 @@ app.post('/admin/users', requireAuth, requirePermission('users:manage'), async (
       users,
       error: 'Nie udało się dodać użytkownika (login może być zajęty)',
     });
+  }
+});
+
+app.post('/admin/users/:id/delete', requireAuth, requirePermission('users:manage'), async (req, res) => {
+  const { id } = req.params;
+
+  // Bezpiecznik: nie pozwól usunąć siebie
+  if (Number(id) === Number(req.session.user.id)) {
+    return res.redirect('/admin/users?e=Nie%20możesz%20usunąć%20własnego%20konta');
+  }
+
+  try {
+    // (opcjonalnie) wyloguj aktywne sesje tego usera (connect-pg-simple trzyma JSON w kolumnie sess)
+    // Jeśli tabela sesji nazywa się inaczej, podmień 'session' na właściwą.
+    await query("DELETE FROM session WHERE sess->'user'->>'id' = $1", [String(id)]);
+
+    // Usuń użytkownika
+    await query('DELETE FROM users WHERE id = $1', [id]);
+
+    return res.redirect('/admin/users?m=Użytkownik%20został%20usunięty');
+  } catch (err) {
+    console.error(err);
+    return res.redirect('/admin/users?e=Nie%20udało%20się%20usunąć%20użytkownika');
   }
 });
 

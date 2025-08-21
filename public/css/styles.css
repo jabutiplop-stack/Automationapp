@@ -35,7 +35,7 @@
   .card__body{padding:18px}
   
   /* Form */
-  .form{display:grid;gap:14px;margin-top:12px}
+  .form{display:grid;gap:14px;margin-top:12px; padding: 10px;}
   .field{display:grid;gap:8px}
   .label{font-size:14px;color:var(--muted)}
   .input{background:#0f141d;border:1px solid var(--border);border-radius:12px;color:var(--text);padding:12px 14px;outline:none}
@@ -134,3 +134,13 @@
 .layout-dash .dash__sidebar { width: 100%; }
 .layout-dash .dash__content { min-width: 0; }
 .footer { text-align: center;}
+.btn--danger{
+  background:#e35050;
+  border-color:#e35050;
+  color:#fff;
+}
+.btn--danger:hover{
+  filter:brightness(.95);
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(227,80,80,.35);
+}

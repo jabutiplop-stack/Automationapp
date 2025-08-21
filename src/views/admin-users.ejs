@@ -2,7 +2,7 @@
     <%- include('partials/sidebar') %>
   
     <section class="dash__content">
-      <h1 class="h2"><%= title %></h1>
+      <h1 class="h2"><%= title %></h1>  
       <div class="card card--elevated" style="margin-bottom:20px;">
         <div class="card__header">
           <h2 class="h4">Dodaj nowego użytkownika</h2>
@@ -83,6 +83,12 @@
                       <% }) %>
                       <button class="btn btn--sm btn--primary" type="submit">Zapisz</button>
                     </form>
+                    <form method="POST" action="/admin/users/<%= u.id %>/delete"
+                        class="inline" style="display:inline;"
+                        onsubmit="return confirm('Na pewno usunąć użytkownika <%= u.username %>?');">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                    <button class="btn btn--sm btn--danger" type="submit">Usuń</button>
+                  </form>
                   </td>
                 </tr>
               <% }) %>
