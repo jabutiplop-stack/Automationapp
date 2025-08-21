@@ -1,31 +1,36 @@
+<div class="dash"></div>
+  <%- include('partials/sidebar') %>
 
-<div class="dash">
- <%- include('partials/sidebar') %>
+  <section class="dash__content">
+    <h1 class="h2">Strona główna</h1>
 
- <section class="dash__content">
-  <h1 class="h2">Strona główna</h1>
-
-  <div class="grid" style="margin-top:20px;">
-    <!-- Kwadrat 1 -->
-    <div class="card" style="min-width:250px;">
-      <div class="card__header">
-        <h3 class="h5">Powitanie 1</h3>
+    <div class="grid" style="margin-top:20px; grid-template-columns: 1fr 1fr; gap:20px;">
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card__header">
+          <h3 class="h5">Powitanie 1</h3>
+        </div>
+        <div class="card__body">
+          <p>
+            Witaj na stronie głównej! 🎉<br />
+            Tutaj znajdziesz najważniejsze informacje i szybki dostęp do zakładek.
+          </p>
+        </div>
       </div>
-      <div class="card__body">
-        <textarea class="input" rows="4" placeholder="Tutaj wpisz tekst powitalny..."></textarea>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card__header">
+          <h3 class="h5">Powitanie 2</h3>
+        </div>
+        <div class="card__body">
+          <p>
+            Cześć <%= user?.username || "użytkowniku" %> 👋<br />
+            Miło Cię widzieć ponownie. Życzymy owocnej pracy z automatyzacjami!
+          </p>
+        </div>
       </div>
     </div>
-
-    <!-- Kwadrat 2 -->
-    <div class="card" style="min-width:250px;">
-      <div class="card__header">
-        <h3 class="h5">Powitanie 2</h3>
-      </div>
-      <div class="card__body">
-        <textarea class="input" rows="4" placeholder="Tutaj wpisz inny tekst powitalny..."></textarea>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 </div>
 
