@@ -3,11 +3,56 @@
   
     <section class="dash__content">
       <h1 class="h2"><%= title %></h1>
-      <p>
-        Ta zakładka służy do testowania integracji SocialAutomation V2.
-        Formularz wysyła dane metodą POST do webhooka <code>WEBHOOK_V2_URL</code>.
-      </p>
-      
+      <h1>Cracov Automation Hub</h1>
+        <h3>Tool Description, Beta Version 0.1.1</h3>
+        <hr>
+        <p>Welcome to the world of <span class="highlight">Cracov Automation Hub</span>, a tool that simplifies creating and scheduling social media content. Our application is currently in its beta version, which allows you to test the generation of posts and graphics. Eventually, after this testing phase, the tool will enable full automation of content publishing on your chosen social media channels, saving you time and effort. Now you have a unique opportunity to see how it works and help us with its development.</p>
+        <p class="beta-note">Please remember that this tool is in beta version 0.1.1. For this reason, you may encounter errors. If you find any issues, please report them. Your feedback is extremely valuable and will help us improve the product. We also want to emphasize that both the content approval channel and the social media channels can be freely customized to meet your specific needs.</p>
+        <hr>
+        <h2>User Guide</h2>
+        <p>Using <span class="highlight">Cracov Automation Hub</span> is simple and intuitive. Follow the steps below to generate your first post:</p>
+        <ol>
+            <li>
+                <span class="highlight">Fill out the form:</span>
+                <ul>
+                    <li>Enter your email address where you will receive the generated content.</li>
+                    <li>Provide the topic of the post you want to create (e.g., "Summer shoe collection promotion").</li>
+                    <li>Check the box if you want a graphic to be generated with the post.</li>
+                </ul>
+            </li>
+            <li>
+                <span class="highlight">Send the request:</span>
+                <ul>
+                    <li>Click the <span class="highlight">"Send"</span> button. Our system will begin generating the content and graphic (if you selected it).</li>
+                </ul>
+            </li>
+            <li>
+                <span class="highlight">Approve the post content:</span>
+                <ul>
+                    <li>Within a few seconds, you will receive an email with the generated post content.</li>
+                    <li>To approve the content, <span class="highlight">reply</span> to the email and enter the command <span class="highlight">!Yes</span>.</li>
+                    <li>If the content needs corrections, enter the command <span class="highlight">!No</span> and add a comment explaining what needs to be changed.</li>
+                    <li><strong>Note:</strong> Commands must start with a capital letter and an exclamation mark (!Yes, !No).</li>
+                </ul>
+            </li>
+            <li>
+                <span class="highlight">Approve the graphic (if applicable):</span>
+                <ul>
+                    <li>If you selected the option for a graphic, after approving the post content, you will receive another email with the generated graphic.</li>
+                    <li>To approve the graphic, <span class="highlight">reply</span> to the email and enter the command <span class="highlight">!Yes</span>.</li>
+                    <li>If the graphic needs corrections, enter the command <span class="highlight">!No</span> and describe what needs to be changed.</li>
+                    <li>Remember the correct command format: <span class="highlight">!Yes</span> or <span class="highlight">!No</span>.</li>
+                </ul>
+            </li>
+            <li>
+                <span class="highlight">Final post:</span>
+                <ul>
+                    <li>After approving both the content and the graphic (if one was requested), you will receive a final email with the complete social media post. This post would have been automatically published on your selected channels.</li>
+                </ul>
+            </li>
+        </ol>
+        <p>Thank you for helping us test and we look forward to your feedback!</p>
+        <h2>Service form</h2>
       <% if (typeof payload !== 'undefined' && payload) { %>
         <div class="card" style="margin-top:16px;">
           <div class="card__header"><strong>Payload was send</strong></div>

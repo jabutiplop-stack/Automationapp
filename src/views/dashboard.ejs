@@ -2,42 +2,30 @@
 <div class="dash">
  <%- include('partials/sidebar') %>
 
-  <section class="dash__content">
-    <h1 class="h2">Witaj, <%= (user && user.name) || "Użytkowniku" %> 👋</h1>
-    <div class="grid">
-      <div class="card">
-        <div class="card__header">
-          <h3 class="h5">Status systemu</h3>
-        </div>
-        <div class="card__body">
-          <ul class="stats">
-            <li><span class="stat__label">Automatyzacje</span><span class="stat__value"><%= stats.automations || 0 %></span></li>
-            <li><span class="stat__label">Webhooki</span><span class="stat__value"><%= stats.webhooks || 0 %></span></li>
-            <li><span class="stat__label">Błędy 24h</span><span class="stat__value stat__value--warn"><%= stats.errors24h || 0 %></span></li>
-          </ul>
-        </div>
-      </div>
+ <section class="dash__content">
+  <h1 class="h2">Strona główna</h1>
 
-      <div class="card">
-        <div class="card__header">
-          <h3 class="h5">Ostatnie zdarzenia</h3>
-        </div>
-        <div class="card__body table-wrap">
-          <table class="table">
-            <thead><tr><th>Data</th><th>Typ</th><th>Źródło</th><th>Status</th></tr></thead>
-            <tbody>
-              <% (events || []).slice(0,8).forEach(e => { %>
-                <tr>
-                  <td><%= e.date || "-" %></td>
-                  <td><%= e.type || "-" %></td>
-                  <td><%= e.source || "-" %></td>
-                  <td><span class="badge <%= e.ok ? 'badge--ok' : 'badge--err' %>"><%= e.ok ? 'OK' : 'Błąd' %></span></td>
-                </tr>
-              <% }) %>
-            </tbody>
-          </table>
-        </div>
+  <div class="grid" style="margin-top:20px;">
+    <!-- Kwadrat 1 -->
+    <div class="card" style="min-width:250px;">
+      <div class="card__header">
+        <h3 class="h5">Powitanie 1</h3>
+      </div>
+      <div class="card__body">
+        <textarea class="input" rows="4" placeholder="Tutaj wpisz tekst powitalny..."></textarea>
       </div>
     </div>
-  </section>
+
+    <!-- Kwadrat 2 -->
+    <div class="card" style="min-width:250px;">
+      <div class="card__header">
+        <h3 class="h5">Powitanie 2</h3>
+      </div>
+      <div class="card__body">
+        <textarea class="input" rows="4" placeholder="Tutaj wpisz inny tekst powitalny..."></textarea>
+      </div>
+    </div>
+  </div>
+</section>
 </div>
+
