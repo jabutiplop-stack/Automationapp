@@ -2,20 +2,28 @@
   <%- include('partials/sidebar') %>
 
   <section class="dash__content">
-    <h1 class="h2">Strona główna</h1>
-
+    <h1 class="h2">Cracov Automation Hub</h1>
+    <div class="card__body">
+      <p>Cześć <%= user?.username || "użytkowniku" %> 👋<br/>Miło Cię widzieć ponownie. Życzymy owocnej pracy z automatyzacjami!</p>
+    </div>
     <div class="home-grid" style="margin-top:20px;">
       <div class="card">
-        <div class="card__header"><h3 class="h5">Powitanie 1</h3></div>
+        <div class="card__header"><h3 class="h5">Witaj w świecie inteligentnych rozwiązań</h3></div>
         <div class="card__body">
-          <p>Witaj na stronie głównej! 🎉<br/>Tutaj znajdziesz najważniejsze informacje i szybki dostęp do zakładek.</p>
+          <p>Jesteśmy <span class="highlight">Cracov Automation Hub</span>, firmą, która specjalizuje się w tworzeniu <span class="highlight">dedykowanych automatyzacji</span> i <span class="highlight">inteligentnych agentów AI dla biznesu</span>. Nasza misja to przekształcanie procesów w Twojej firmie, aby były bardziej wydajne, oszczędzały czas i zwiększały zyski.</p>
+          <p>Wierzymy, że przyszłość biznesu należy do automatyzacji. Dlatego nie dostarczamy gotowych, uniwersalnych rozwiązań, które nie pasują do unikalnych potrzeb Twojej firmy. Zamiast tego, współpracujemy z naszymi klientami, aby zrozumieć ich specyficzne wyzwania i zaprojektować <span class="highlight">rozwiązania szyte na miarę</span>.</p>
+          <p>Nasi <span class="highlight">agenci AI</span> to coś więcej niż proste narzędzia. To zaawansowane systemy, które uczą się, dostosowują i podejmują decyzje, aby zautomatyzować powtarzalne zadania — od zarządzania mediami społecznościowymi, przez obsługę klienta, aż po analizę danych. Dzięki nim możesz skupić się na strategicznym rozwoju, podczas gdy nasze inteligentne systemy zajmą się resztą.</p>
+          <p>Gotowy, aby przenieść swój biznes na wyższy poziom? Skontaktuj się z nami i dowiedz się, jak nasze <span class="highlight">automatyzacje</span> i <span class="highlight">agenci AI</span> mogą pracować na Twój sukces.</p>
         </div>
       </div>
 
       <div class="card">
-        <div class="card__header"><h3 class="h5">Powitanie 2</h3></div>
+        <div class="card__header"><h3 class="h5">Welcome to a world of smart solutions</h3></div>
         <div class="card__body">
-          <p>Cześć <%= user?.username || "użytkowniku" %> 👋<br/>Miło Cię widzieć ponownie. Życzymy owocnej pracy z automatyzacjami!</p>
+          <p>We are <span class="highlight">Cracov Automation Hub</span>, a company specializing in the creation of <span class="highlight">custom automations</span> and <span class="highlight">intelligent AI agents for businesses</span>. Our mission is to transform your company's processes to be more efficient, save time, and increase profits.</p>
+            <p>We believe that the future of business belongs to automation. That’s why we don’t offer one-size-fits-all solutions that don’t align with your unique business needs. Instead, we collaborate with our clients to understand their specific challenges and design <span class="highlight">tailor-made solutions</span>.</p>
+            <p>Our <span class="highlight">AI agents</span> are more than just simple tools. They are advanced systems that learn, adapt, and make decisions to automate repetitive tasks—from social media management and customer service to data analysis. With our help, you can focus on strategic growth while our intelligent systems handle the rest.</p>
+            <p>Ready to take your business to the next level? Contact us to learn how our <span class="highlight">automations</span> and <span class="highlight">AI agents</span> can work for your success.</p>
         </div>
       </div>
     </div>
