@@ -14,7 +14,7 @@ import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import expressLayouts from 'express-ejs-layouts';
-
+import fetch from 'node-fetch';
 import { pool, query } from './db.js';
 
 const NAV_ITEMS = [
@@ -80,7 +80,7 @@ app.use(
 
 // --- Logi + body parsing + statyki ---
 app.use(morgan('combined'));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // --- Sesje (PostgreSQL store) ---
@@ -164,6 +164,134 @@ app.get('/social/v2', requireAuth, requirePermission('social:v2'), (req, res) =>
 app.get('/social/v3', requireAuth, requirePermission('social:v3'), (req, res) => {
   res.render('social-v3', { title: 'SocialAutomationV3' });
 });
+
+// === SOCIAL V1: submit formularza -> wyślij webhook ===
+app.post('/social/v1', requireAuth, requirePermission('social:v1'), async (req, res) => {
+  const { textA, textB, agree } = req.body;
+
+  // przygotuj payload do webhooka
+  const payload = {
+    source: 'social-v1',
+    user: req.session.user?.username,
+    textA: textA || '',
+    textB: textB || '',
+    agree: !!agree,
+    timestamp: new Date().toISOString(),
+  };
+
+  try {
+    const url = process.env.WEBHOOK_V1_URL;
+    if (!url) throw new Error('Brak WEBHOOK_V1_URL w .env');
+
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const respText = await resp.text();
+    // pokaż wynik na stronie
+    return res.render('social-v1', {
+      title: 'SocialAutomationV1',
+      sent: resp.ok,
+      responseText: respText,
+      payload,
+    });
+  } catch (err) {
+    return res.render('social-v1', {
+      title: 'SocialAutomationV1',
+      sent: false,
+      responseText: String(err.message || err),
+      payload,
+    });
+  }
+});
+
+// === SOCIAL V2 ===
+app.post('/social/v2', requireAuth, requirePermission('social:v2'), async (req, res) => {
+  const { textA, textB, agree } = req.body;
+
+  const payload = {
+    source: 'social-v2',
+    user: req.session.user?.username,
+    textA: textA || '',
+    textB: textB || '',
+    agree: !!agree,
+    timestamp: new Date().toISOString(),
+  };
+
+  try {
+    const url = process.env.WEBHOOK_V2_URL;
+    if (!url) throw new Error('Brak WEBHOOK_V2_URL w .env');
+
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const respText = await resp.text();
+    return res.render('social-v2', {
+      title: 'SocialAutomationV2',
+      sent: resp.ok,
+      responseText: respText,
+      payload,
+    });
+  } catch (err) {
+    return res.render('social-v2', {
+      title: 'SocialAutomationV2',
+      sent: false,
+      responseText: String(err.message || err),
+      payload,
+    });
+  }
+});
+
+// === SOCIAL V3 ===
+app.post('/social/v3', requireAuth, requirePermission('social:v3'), async (req, res) => {
+  const { textA, textB, agree } = req.body;
+
+  const payload = {
+    source: 'social-v3',
+    user: req.session.user?.username,
+    textA: textA || '',
+    textB: textB || '',
+    agree: !!agree,
+    timestamp: new Date().toISOString(),
+  };
+
+  try {
+    const url = process.env.WEBHOOK_V3_URL;
+    if (!url) throw new Error('Brak WEBHOOK_V3_URL w .env');
+
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const respText = await resp.text();
+    return res.render('social-v3', {
+      title: 'SocialAutomationV3',
+      sent: resp.ok,
+      responseText: respText,
+      payload,
+    });
+  } catch (err) {
+    return res.render('social-v3', {
+      title: 'SocialAutomationV3',
+      sent: false,
+      responseText: String(err.message || err),
+      payload,
+    });
+  }
+});
+
+
+
+
+
+
 
 app.post(
   '/login',
