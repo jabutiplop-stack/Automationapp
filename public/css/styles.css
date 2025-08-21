@@ -61,9 +61,6 @@
   .dash__sidebar {
     height: auto;
   }
-  .dash__content {
-    flex: 1;                /* zajmuje resztę miejsca */
-  }
   .side-section{padding:14px}
   .side-title{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
   .side-link{display:block;padding:10px 12px;border-radius:10px;color:var(--text)}
@@ -115,3 +112,19 @@
 
 /* opcjonalnie: delikatniejszy cień */
 .card--elevated{box-shadow: 0 14px 44px rgba(0,0,0,.35)}
+.page .dash {                     /* zwiększona specyficzność */
+  display: grid !important;
+  grid-template-columns: 280px 1fr !important;
+  gap: 24px;
+  align-items: start;
+}
+
+.dash__sidebar { width: 100%; }   /* sidebar w swojej kolumnie */
+.dash__content { min-width: 0; }  /* treść nie rozpycha siatki */
+
+/* Dwie równe karty na stronie głównej */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
