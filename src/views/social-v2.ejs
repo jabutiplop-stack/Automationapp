@@ -4,12 +4,15 @@
     <section class="dash__content">
       <h1 class="h2"><%= title %></h1>
   
-      <% if (typeof sent !== 'undefined') { %>
-        <div class="alert <%= sent ? 'alert--ok' : 'alert--error' %>">
-          <strong><%= sent ? 'Wysłano!' : 'Błąd wysyłki' %></strong>
-          <div class="muted" style="white-space:pre-wrap;"><%= responseText || '' %></div>
+      <% if (typeof payload !== 'undefined' && payload) { %>
+        <div class="card" style="margin-top:16px;">
+          <div class="card__header"><strong>Payload wysłany do webhooka</strong></div>
+          <div class="card__body">
+            <pre><%= JSON.stringify(payload, null, 2) %></pre>
+          </div>
         </div>
       <% } %>
+      
   
       <form method="POST" action="/social/v2" class="form card card--elevated" style="padding:16px;">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
@@ -34,12 +37,10 @@
         <button class="btn btn--primary" type="submit">Wyślij webhook</button>
       </form>
   
-      <% if (payload) { %>
-        <div class="card" style="margin-top:16px;">
-          <div class="card__header"><strong>Payload wysłany do webhooka</strong></div>
-          <div class="card__body">
-            <pre><%= JSON.stringify(payload, null, 2) %></pre>
-          </div>
+      <% if (typeof sent !== 'undefined' && sent !== null) { %>
+        <div class="alert <%= sent ? 'alert--ok' : 'alert--error' %>">
+          <strong><%= sent ? 'Wysłano!' : 'Błąd wysyłki' %></strong>
+          <div class="muted" style="white-space:pre-wrap;"><%= responseText || '' %></div>
         </div>
       <% } %>
     </section>

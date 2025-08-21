@@ -152,17 +152,19 @@ app.get('/login', (req, res) => {
   });
 });
 
-// === SOCIAL AUTOMATION ROUTES (WSTAW TU, POD /dashboard) ===
+// GET V1
 app.get('/social/v1', requireAuth, requirePermission('social:v1'), (req, res) => {
-  res.render('social-v1', { title: 'SocialAutomationV1' });
+  res.render('social-v1', { title: 'SocialAutomationV1', sent: null, responseText: '', payload: null });
 });
 
+// GET V2
 app.get('/social/v2', requireAuth, requirePermission('social:v2'), (req, res) => {
-  res.render('social-v2', { title: 'SocialAutomationV2' });
+  res.render('social-v2', { title: 'SocialAutomationV2', sent: null, responseText: '', payload: null });
 });
 
+// GET V3
 app.get('/social/v3', requireAuth, requirePermission('social:v3'), (req, res) => {
-  res.render('social-v3', { title: 'SocialAutomationV3' });
+  res.render('social-v3', { title: 'SocialAutomationV3', sent: null, responseText: '', payload: null });
 });
 
 // === SOCIAL V1: submit formularza -> wyślij webhook ===
