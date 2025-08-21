@@ -19,9 +19,19 @@
         </div>
         <div class="card__body">
           <ul class="stats">
-            <li><span class="stat__label">Automatyzacje</span><span class="stat__value"><%= stats.automations || 0 %></span></li>
-            <li><span class="stat__label">Webhooki</span><span class="stat__value"><%= stats.webhooks || 0 %></span></li>
-            <li><span class="stat__label">Błędy 24h</span><span class="stat__value stat__value--warn"><%= stats.errors24h || 0 %></span></li>
+            <aside class="dash__sidebar">
+              <div class="side-section">
+                <div class="side-title">Nawigacja</div>
+            
+                <% const userPerms = (user && user.permissions) || []; %>
+                <% (navItems || []).filter(i => userPerms.includes(i.perm)).forEach(item => { %>
+                  <a
+                    class="side-link <%= currentPath === item.href ? 'side-link--active' : '' %>"
+                    href="<%= item.href %>"
+                  ><%= item.label %></a>
+                <% }); %>
+              </div>
+            </aside>
           </ul>
         </div>
       </div>

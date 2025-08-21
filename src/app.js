@@ -17,6 +17,25 @@ import expressLayouts from 'express-ejs-layouts';
 
 import { pool, query } from './db.js';
 
+const NAV_ITEMS = [
+  { key: 'dashboard', label: 'Dashboard', href: '/dashboard', perm: 'dashboard:view' },
+  { key: 'reports', label: 'Raporty', href: '/reports', perm: 'reports:view' },
+  { key: 'integrations', label: 'Integracje', href: '/integrations', perm: 'integrations:view' },
+  { key: 'users', label: 'Użytkownicy', href: '/admin/users', perm: 'users:manage' }, // tylko admin
+];
+
+function requireAuth(req, res, next) {
+  if (!req.session?.user) return res.redirect('/login?e=' + encodeURIComponent('Zaloguj się'));
+  next();
+}
+function requirePermission(perm) {
+  return (req, res, next) => {
+    const perms = req.session?.user?.permissions || [];
+    if (!perms.includes(perm)) return res.status(403).send('Brak uprawnień');
+    next();
+  };
+}
+
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -87,16 +106,12 @@ app.use(csrfProtection);
 // --- Zmienne globalne do widoków (user/csrf) ---
 app.use((req, res, next) => {
   res.locals.user = req.session?.user || null;
-  // Nie musimy podawać csrfToken w każdym res.render — będzie dostępny jako zmienna globalna
-  try {
-    res.locals.csrfToken = req.csrfToken();
-  } catch {
-    res.locals.csrfToken = '';
-  }
+  // Jeśli masz csurf – zostaw jak jest; ważne by csrfToken trafiał do widoków
+  try { res.locals.csrfToken = req.csrfToken(); } catch { res.locals.csrfToken = ''; }
   res.locals.currentPath = req.path || '';
+  res.locals.navItems = NAV_ITEMS;
   next();
 });
-
 // --- Rate limit tylko na /login ---
 const loginLimiter = rateLimit({
   windowMs: 60 * 1000,
@@ -146,7 +161,7 @@ app.post(
 
     try {
       const { rows } = await query(
-        'SELECT id, username, password FROM users WHERE username = $1',
+        'SELECT id, username, password, permissions FROM users WHERE username = $1',
         [username]
       );
 
@@ -162,7 +177,11 @@ app.post(
         return res.redirect('/login?e=' + encodeURIComponent('Nieprawidłowy login lub hasło.'));
       }
 
-      req.session.user = { id: user.id, username: user.username };
+      req.session.user = {
+        id: user.id,
+        username: user.username,
+        permissions: user.permissions || []
+      };
       return res.redirect('/dashboard');
     } catch (err) {
       console.error('Login error:', err);
