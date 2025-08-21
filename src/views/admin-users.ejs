@@ -15,16 +15,23 @@
               <td><%= (u.permissions || []).join(', ') || '-' %></td>
               <td>
                 <form method="POST" action="/admin/users/<%= u.id %>/permissions">
-                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                  <% ['dashboard:view','reports:view','integrations:view','users:manage'].forEach(p => { %>
-                    <label style="margin-right:12px; display:inline-block;">
-                      <input type="checkbox" name="permissions" value="<%= p %>"
-                        <%= (u.permissions || []).includes(p) ? 'checked' : '' %> />
-                      <span class="muted"><%= p %></span>
-                    </label>
-                  <% }) %>
-                  <button class="btn btn--sm" type="submit">Zapisz</button>
-                </form>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                  
+                    <% [
+                      'social:v1',
+                      'social:v2',
+                      'social:v3',
+                      'users:manage' // dostęp do panelu Użytkownicy
+                    ].forEach(p => { %>
+                      <label style="margin-right:12px; display:inline-block;">
+                        <input type="checkbox" name="permissions" value="<%= p %>"
+                          <%= (u.permissions || []).includes(p) ? 'checked' : '' %> />
+                        <span class="muted"><%= p %></span>
+                      </label>
+                    <% }) %>
+                  
+                    <button class="btn btn--sm" type="submit">Zapisz</button>
+                  </form>
               </td>
             </tr>
           <% }) %>

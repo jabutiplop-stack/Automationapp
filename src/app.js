@@ -18,10 +18,16 @@ import expressLayouts from 'express-ejs-layouts';
 import { pool, query } from './db.js';
 
 const NAV_ITEMS = [
-  { key: 'dashboard', label: 'Dashboard', href: '/dashboard', perm: 'dashboard:view' },
-  { key: 'reports', label: 'Raporty', href: '/reports', perm: 'reports:view' },
-  { key: 'integrations', label: 'Integracje', href: '/integrations', perm: 'integrations:view' },
-  { key: 'users', label: 'Użytkownicy', href: '/admin/users', perm: 'users:manage' }, // tylko admin
+  // brak "perm" => widać dla każdego zalogowanego
+  { key: 'dashboard', label: 'Dashboard', href: '/dashboard' },
+
+  // nowe zakładki SocialAutomation — chronione uprawnieniami
+  { key: 'social-v1', label: 'SocialAutomationV1', href: '/social/v1', perm: 'social:v1' },
+  { key: 'social-v2', label: 'SocialAutomationV2', href: '/social/v2', perm: 'social:v2' },
+  { key: 'social-v3', label: 'SocialAutomationV3', href: '/social/v3', perm: 'social:v3' },
+
+  // panel admina — tylko dla posiadaczy users:manage
+  { key: 'users', label: 'Użytkownicy', href: '/admin/users', perm: 'users:manage' },
 ];
 
 function requireAuth(req, res, next) {
@@ -144,6 +150,19 @@ app.get('/login', (req, res) => {
     const { e } = req.query;
     return res.render('login', { title: 'Logowanie', error: e || null });
   });
+});
+
+// === SOCIAL AUTOMATION ROUTES (WSTAW TU, POD /dashboard) ===
+app.get('/social/v1', requireAuth, requirePermission('social:v1'), (req, res) => {
+  res.render('social-v1', { title: 'SocialAutomationV1' });
+});
+
+app.get('/social/v2', requireAuth, requirePermission('social:v2'), (req, res) => {
+  res.render('social-v2', { title: 'SocialAutomationV2' });
+});
+
+app.get('/social/v3', requireAuth, requirePermission('social:v3'), (req, res) => {
+  res.render('social-v3', { title: 'SocialAutomationV3' });
 });
 
 app.post(
