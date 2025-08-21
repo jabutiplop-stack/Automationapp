@@ -3,10 +3,14 @@
   <aside class="dash__sidebar">
     <div class="side-section">
       <div class="side-title">Nawigacja</div>
-      <a href="/dashboard" class="side-link side-link--active">📊 Podsumowanie</a>
-      <a href="/webhooks"  class="side-link">🔔 Webhooki</a>
-      <a href="/runs"      class="side-link">⚡ Wykonania</a>
-      <a href="/settings"  class="side-link">⚙️ Ustawienia</a>
+  
+      <% const userPerms = (user && user.permissions) || []; %>
+      <% (navItems || []).filter(i => userPerms.includes(i.perm)).forEach(item => { %>
+        <a
+          class="side-link <%= currentPath === item.href ? 'side-link--active' : '' %>"
+          href="<%= item.href %>"
+        ><%= item.label %></a>
+      <% }); %>
     </div>
   </aside>
 
@@ -19,19 +23,9 @@
         </div>
         <div class="card__body">
           <ul class="stats">
-            <aside class="dash__sidebar">
-              <div class="side-section">
-                <div class="side-title">Nawigacja</div>
-            
-                <% const userPerms = (user && user.permissions) || []; %>
-                <% (navItems || []).filter(i => userPerms.includes(i.perm)).forEach(item => { %>
-                  <a
-                    class="side-link <%= currentPath === item.href ? 'side-link--active' : '' %>"
-                    href="<%= item.href %>"
-                  ><%= item.label %></a>
-                <% }); %>
-              </div>
-            </aside>
+            <li><span class="stat__label">Automatyzacje</span><span class="stat__value"><%= stats.automations || 0 %></span></li>
+            <li><span class="stat__label">Webhooki</span><span class="stat__value"><%= stats.webhooks || 0 %></span></li>
+            <li><span class="stat__label">Błędy 24h</span><span class="stat__value stat__value--warn"><%= stats.errors24h || 0 %></span></li>
           </ul>
         </div>
       </div>

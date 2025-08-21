@@ -207,6 +207,27 @@ app.get('/dashboard', (req, res) => {
   });
 });
 
+// === PANEL ADMINA: lista użytkowników (wymaga users:manage) ===
+app.get('/admin/users', requireAuth, requirePermission('users:manage'), async (req, res) => {
+  const { rows: users } = await query('SELECT id, username, permissions FROM users ORDER BY id ASC');
+  res.render('admin-users', { title: 'Użytkownicy', users });
+});
+
+// === PANEL ADMINA: zapis uprawnień (checkboxy) ===
+app.post('/admin/users/:id/permissions', requireAuth, requirePermission('users:manage'), async (req, res) => {
+  const { id } = req.params;
+  let { permissions = [] } = req.body;
+  if (!Array.isArray(permissions)) permissions = [permissions]; // 1 checkbox => string
+  await query('UPDATE users SET permissions = $1 WHERE id = $2', [permissions, id]);
+
+  // Jeśli admin zmienił samego siebie — odśwież sesję
+  if (Number(req.session.user.id) === Number(id)) {
+    const { rows } = await query('SELECT permissions FROM users WHERE id = $1', [id]);
+    req.session.user.permissions = rows[0]?.permissions || [];
+  }
+  res.redirect('/admin/users');
+});
+
 app.post('/logout', (req, res) => {
   if (!req.session?.user) return res.redirect('/login');
   req.session.destroy(() => {
