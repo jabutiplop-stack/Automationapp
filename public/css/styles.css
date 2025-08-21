@@ -42,8 +42,18 @@
   .input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(76,139,245,.15)}
   
   /* Dashboard */
-  .dash{display:grid;grid-template-columns:260px 1fr;gap:20px}
-  .dash__sidebar{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);height:fit-content;position:sticky;top:76px}
+  .dash {
+    display: flex;          /* zamiast blokowego układu */
+    align-items: flex-start; /* żeby sidebar był u góry */
+  }
+  .dash__sidebar {
+    width: 220px;           /* stała szerokość sidebara */
+    flex-shrink: 0;
+    margin-right: 20px;
+  }
+  .dash__content {
+    flex: 1;                /* zajmuje resztę miejsca */
+  }
   .side-section{padding:14px}
   .side-title{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
   .side-link{display:block;padding:10px 12px;border-radius:10px;color:var(--text)}
