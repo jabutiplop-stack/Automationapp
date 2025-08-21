@@ -1,15 +1,19 @@
 <aside class="dash__sidebar">
-    <div class="side-section">
-      <div class="side-title">NAWIGACJA</div>
+    <div class="card">
+      <div class="card__body">
+        <div class="side-section">
+          <div class="side-title">NAWIGACJA</div>
   
-      <% const userPerms = (user && user.permissions) || []; %>
-      <% (navItems || [])
-           .filter(i => !i.perm || userPerms.includes(i.perm))
-           .forEach(item => { %>
-        <a
-          class="side-link <%= currentPath === item.href ? 'side-link--active' : '' %>"
-          href="<%= item.href %>"
-        ><%= item.label %></a>
-      <% }); %>
+          <% const userPerms = (user && user.permissions) || []; %>
+          <% (navItems || [])
+               .filter(i => !i.perm || userPerms.includes(i.perm))
+               .forEach(item => { %>
+            <a
+              class="side-link <%= currentPath === item.href ? 'side-link--active' : '' %>"
+              href="<%= item.href %>"
+            ><%= item.label %></a>
+          <% }); %>
+        </div>
+      </div>
     </div>
   </aside>

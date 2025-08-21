@@ -43,13 +43,23 @@
   
   /* Dashboard */
   .dash {
-    display: flex;          /* zamiast blokowego układu */
-    align-items: flex-start; /* żeby sidebar był u góry */
+    display: grid;
+    grid-template-columns: 280px 1fr; /* szerokość sidebara + reszta */
+    gap: 24px;
+    align-items: start;
+  }
+  
+  /* Treść po prawej ma się normalnie rozszerzać */
+  .dash__content { min-width: 0; }
+  
+  /* Siatka na stronie głównej: dwie równe karty obok siebie */
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
   }
   .dash__sidebar {
-    width: 220px;           /* stała szerokość sidebara */
-    flex-shrink: 0;
-    margin-right: 20px;
+    height: auto;
   }
   .dash__content {
     flex: 1;                /* zajmuje resztę miejsca */
