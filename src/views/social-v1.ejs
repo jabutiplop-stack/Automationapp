@@ -66,23 +66,23 @@
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
   
         <div class="field">
-          <label class="label" for="textA">Pole tekstowe A</label>
-          <input class="input" id="textA" name="textA" placeholder="Wpisz tekst A" required />
+          <label class="label" for="textA">E-mail</label>
+          <input class="input" id="textA" name="textA" placeholder="E-mail"  type="email" required />
         </div>
   
         <div class="field">
-          <label class="label" for="textB">Pole tekstowe B</label>
+          <label class="label" for="textB">Post Topic</label>
           <input class="input" id="textB" name="textB" placeholder="Wpisz tekst B" required/>
         </div>
   
         <div class="field">
           <label class="checkbox">
             <input type="checkbox" name="agree" value="1" />
-            <span>Czy mam generować grafikę?</span>
+            <span>Should I generate a graphic?</span>
           </label>
         </div>
   
-        <button class="btn btn--primary" type="submit">Wyślij webhook</button>
+        <button class="btn btn--primary" type="submit">Sedn webhook</button>
       </form>
   
       <% if (typeof sent !== 'undefined' && sent !== null) { %>
