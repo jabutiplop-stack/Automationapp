@@ -144,3 +144,8 @@
   transform:translateY(-1px);
   box-shadow:0 6px 16px rgba(227,80,80,.35);
 }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* odstęp między logo a napisem */
+}
